@@ -1,0 +1,171 @@
+@font-face {
+  font-family: 'MierB';
+  src: url('MierB-Thin.eot');
+  src: local('Mier B Thin'), local('MierB-Thin'), url('MierB-Thin.eot?#iefix') format('embedded-opentype'),
+    url('MierB-Thin.woff2') format('woff2'), url('MierB-Thin.woff') format('woff'),
+    url('MierB-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MierB';
+  src: url('MierB-HeavyItalic.eot');
+  src: local('Mier B Heavy Italic'), local('MierB-HeavyItalic'),
+    url('MierB-HeavyItalic.eot?#iefix') format('embedded-opentype'), url('MierB-HeavyItalic.woff2') format('woff2'),
+    url('MierB-HeavyItalic.woff') format('woff'), url('MierB-HeavyItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'MierB';
+  src: url('MierB-Regular.eot');
+  src: local('Mier B Regular'), local('MierB-Regular'), url('MierB-Regular.eot?#iefix') format('embedded-opentype'),
+    url('MierB-Regular.woff2') format('woff2'), url('MierB-Regular.woff') format('woff'),
+    url('MierB-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MierB';
+  src: url('MierB-ThinItalic.eot');
+  src: local('Mier B Thin Italic'), local('MierB-ThinItalic'),
+    url('MierB-ThinItalic.eot?#iefix') format('embedded-opentype'), url('MierB-ThinItalic.woff2') format('woff2'),
+    url('MierB-ThinItalic.woff') format('woff'), url('MierB-ThinItalic.ttf') format('truetype');
+  font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Mier B Book';
+  src: url('MierB-BookItalic.eot');
+  src: local('Mier B Book Italic'), local('MierB-BookItalic'),
+    url('MierB-BookItalic.eot?#iefix') format('embedded-opentype'), url('MierB-BookItalic.woff2') format('woff2'),
+    url('MierB-BookItalic.woff') format('woff'), url('MierB-BookItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'MierB';
+  src: url('MierB-Black.eot');
+  src: local('Mier B Black'), local('MierB-Black'), url('MierB-Black.eot?#iefix') format('embedded-opentype'),
+    url('MierB-Black.woff2') format('woff2'), url('MierB-Black.woff') format('woff'),
+    url('MierB-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MierB';
+  src: url('MierB-Bold.eot');
+  src: local('Mier B Bold'), local('MierB-Bold'), url('MierB-Bold.eot?#iefix') format('embedded-opentype'),
+    url('MierB-Bold.woff2') format('woff2'), url('MierB-Bold.woff') format('woff'),
+    url('MierB-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MierB';
+  src: url('MierB-ExtraBoldItalic.eot');
+  src: local('Mier B ExtraBold Italic'), local('MierB-ExtraBoldItalic'),
+    url('MierB-ExtraBoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('MierB-ExtraBoldItalic.woff2') format('woff2'), url('MierB-ExtraBoldItalic.woff') format('woff'),
+    url('MierB-ExtraBoldItalic.ttf') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'MierB';
+  src: url('MierB-DemiBold.eot');
+  src: local('Mier B DemiBold'), local('MierB-DemiBold'), url('MierB-DemiBold.eot?#iefix') format('embedded-opentype'),
+    url('MierB-DemiBold.woff2') format('woff2'), url('MierB-DemiBold.woff') format('woff'),
+    url('MierB-DemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MierB';
+  src: url('MierB-Light.eot');
+  src: local('Mier B Light'), local('MierB-Light'), url('MierB-Light.eot?#iefix') format('embedded-opentype'),
+    url('MierB-Light.woff2') format('woff2'), url('MierB-Light.woff') format('woff'),
+    url('MierB-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MierB';
+  src: url('MierB-BlackItalic.eot');
+  src: local('Mier B Black Italic'), local('MierB-BlackItalic'),
+    url('MierB-BlackItalic.eot?#iefix') format('embedded-opentype'), url('MierB-BlackItalic.woff2') format('woff2'),
+    url('MierB-BlackItalic.woff') format('woff'), url('MierB-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'MierB';
+  src: url('MierB-BoldItalic.eot');
+  src: local('Mier B Bold Italic'), local('MierB-BoldItalic'),
+    url('MierB-BoldItalic.eot?#iefix') format('embedded-opentype'), url('MierB-BoldItalic.woff2') format('woff2'),
+    url('MierB-BoldItalic.woff') format('woff'), url('MierB-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'MierB';
+  src: url('MierB-LightItalic.eot');
+  src: local('Mier B Light Italic'), local('MierB-LightItalic'),
+    url('MierB-LightItalic.eot?#iefix') format('embedded-opentype'), url('MierB-LightItalic.woff2') format('woff2'),
+    url('MierB-LightItalic.woff') format('woff'), url('MierB-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'MierB';
+  src: url('MierB-DemiBoldItalic.eot');
+  src: local('Mier B DemiBold Italic'), local('MierB-DemiBoldItalic'),
+    url('MierB-DemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('MierB-DemiBoldItalic.woff2') format('woff2'), url('MierB-DemiBoldItalic.woff') format('woff'),
+    url('MierB-DemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Mier B Hair';
+  src: url('MierB-Hair.eot');
+  src: local('Mier B Hair'), local('MierB-Hair'), url('MierB-Hair.eot?#iefix') format('embedded-opentype'),
+    url('MierB-Hair.woff2') format('woff2'), url('MierB-Hair.woff') format('woff'),
+    url('MierB-Hair.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mier B Hair';
+  src: url('MierB-HairItalic.eot');
+  src: local('Mier B Hair Italic'), local('MierB-HairItalic'),
+    url('MierB-HairItalic.eot?#iefix') format('embedded-opentype'), url('MierB-HairItalic.woff2') format('woff2'),
+    url('MierB-HairItalic.woff') format('woff'), url('MierB-HairItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'MierB';
+  src: url('MierB-Italic.eot');
+  src: local('Mier B Italic'), local('MierB-Italic'), url('MierB-Italic.eot?#iefix') format('embedded-opentype'),
+    url('MierB-Italic.woff2') format('woff2'), url('MierB-Italic.woff') format('woff'),
+    url('MierB-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}

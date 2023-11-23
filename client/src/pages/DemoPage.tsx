@@ -51,7 +51,7 @@ const DemoPage: React.FC = () => {
       <Flex flex='1' flexDirection='column' p={3}>
         {currentChannel && (
           <>
-            <ChatArea messages={messages.filter(msg => msg.ChannelID === currentChannel.ID)} />
+            <ChatArea messages={messages.filter(msg => msg.ChannelID === currentChannel?.ID)} />
             <MessageInput onSendMessage={handleSendMessage} currentUser={defaultUser} />
           </>
         )}

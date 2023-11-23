@@ -11,13 +11,42 @@ import (
 	"github.com/rs/cors"
 
 	"server/handlers"
+	"server/models"
 
-	"server/database"
+	"server/wsclient"
 
 	"github.com/gorilla/mux"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
+
+func handleWebSocketMessage(db *gorm.DB, c *wsclient.Client, data interface{}) {
+	wsMsg, ok := data.(models.WebSocketMessage)
+	if !ok {
+		log.Println("Invalid message format")
+		return
+	}
+
+	// Convert WebSocketMessage to Message
+	message := wsMsg.ToMessage()
+
+	// Save the message to the database
+	err := models.SaveMessage(db, message)
+	if err != nil {
+		log.Printf("Error saving message: %v\n", err)
+		return
+	}
+
+	log.Printf("Saved message: %v\n", message.Content)
+
+	broadcastMsg := models.WebSocketMessage{
+		Content:   message.Content,
+		UserID:    message.UserID,
+		ChannelID: message.ChannelID,
+	}
+
+	wsclient.BroadcastToChannel(wsMsg.ChannelID, broadcastMsg)
+}
 
 func main() {
 	err := godotenv.Load()
@@ -30,12 +59,18 @@ func main() {
 		log.Fatal("Failed to connect to database:", err)
 	}
 
-	err = db.AutoMigrate(&database.User{}, &database.Channel{}, &database.Message{})
+	err = db.AutoMigrate(&models.User{}, &models.Channel{}, &models.Message{})
 	if err != nil {
 		log.Fatal("Failed to migrate database:", err)
 	}
 
 	r := mux.NewRouter()
+	wsRouter := wsclient.NewRouter()
+
+	handleWebSocketMessageWithDb := func(c *wsclient.Client, data interface{}) {
+		handleWebSocketMessage(db, c, data)
+	}
+	wsRouter.Handle("newMessage", handleWebSocketMessageWithDb)
 
 	// set up routes with gorilla/mux
 	r.HandleFunc("/users", handlers.UsersHandler(db)).Methods("GET", "POST")
@@ -50,7 +85,7 @@ func main() {
 	r.HandleFunc("/messages", handlers.MessagesHandler(db)).Methods("GET", "POST")
 
 	// handler for websockets
-	r.HandleFunc("/ws", handlers.WebSocketHandler(db)).Methods("GET")
+	r.HandleFunc("/ws", handlers.WebSocketHandler(db, wsRouter)).Methods("GET")
 
 	handler := cors.Default().Handler(r)
 

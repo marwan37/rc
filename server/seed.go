@@ -3,13 +3,13 @@ package main
 
 import (
 	"log"
-	"server/database"
+	"server/models"
 
 	"gorm.io/gorm"
 )
 
 func seed(db *gorm.DB) {
-	users := []database.User{
+	users := []models.User{
 		{Name: "Alice", Email: "alice@example.com"},
 		{Name: "Bob", Email: "bob@example.com"},
 		{Name: "John", Email: "john@example.com"},
@@ -24,7 +24,7 @@ func seed(db *gorm.DB) {
 		}
 	}
 
-	channels := []database.Channel{
+	channels := []models.Channel{
 		{Name: "General"},
 		{Name: "Random"},
 	}
@@ -36,13 +36,13 @@ func seed(db *gorm.DB) {
 		}
 	}
 
-	var otherUsers []database.User
+	var otherUsers []models.User
 	if err := db.Not("email = ?", "marwan@example.com").Find(&otherUsers).Error; err != nil {
 		log.Fatal("Failed to fetch users for DM channels:", err)
 	}
 
 	for _, user := range otherUsers {
-		dmChannel := database.Channel{
+		dmChannel := models.Channel{
 			Name:        "DM with " + user.Name,
 			Description: "Direct Message Channel between Marwan and " + user.Name,
 		}

@@ -4,7 +4,7 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
-	"server/database"
+	"server/models"
 	"server/utils"
 
 	"github.com/gorilla/mux"
@@ -34,7 +34,7 @@ func MessagesHandler(db *gorm.DB) http.HandlerFunc {
 }
 
 func handleGetAllMessages(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
-	var messages []database.Message
+	var messages []models.Message
 	result := db.Preload("User").Find(&messages)
 	if result.Error != nil {
 		http.Error(w, result.Error.Error(), http.StatusInternalServerError)
@@ -44,7 +44,7 @@ func handleGetAllMessages(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 }
 
 func handlePostMessage(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
-	var message database.Message
+	var message models.Message
 	if err := json.NewDecoder(r.Body).Decode(&message); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -62,7 +62,7 @@ func handleGetMessagesForUniqueChannel(w http.ResponseWriter, r *http.Request, d
 	userId2 := vars["userId2"]
 
 	channelID := utils.GetUniqueChannelId(userId1, userId2)
-	var messages []database.Message
+	var messages []models.Message
 	if result := db.Where("channel_id = ?", channelID).Find(&messages); result.Error != nil {
 		http.Error(w, result.Error.Error(), http.StatusInternalServerError)
 		return

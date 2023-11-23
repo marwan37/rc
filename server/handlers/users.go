@@ -4,7 +4,7 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
-	"server/database"
+	"server/models"
 
 	"gorm.io/gorm"
 )
@@ -13,7 +13,7 @@ func UsersHandler(db *gorm.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case "GET":
-			var users []database.User
+			var users []models.User
 			result := db.Find(&users)
 			if result.Error != nil {
 				http.Error(w, result.Error.Error(), http.StatusInternalServerError)
@@ -22,7 +22,7 @@ func UsersHandler(db *gorm.DB) http.HandlerFunc {
 			json.NewEncoder(w).Encode(users)
 
 		case "POST":
-			var user database.User
+			var user models.User
 			err := json.NewDecoder(r.Body).Decode(&user)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusBadRequest)

@@ -1,17 +1,10 @@
 import { Text, VStack, HStack, Avatar } from '@chakra-ui/react';
 import { Message } from '@/types/Message';
+import { formatTime } from '@/utils/dates';
 
 interface ChatAreaProps {
   messages: Message[];
 }
-
-const formatTime = (date: Date) => {
-  return new Date(date).toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true
-  });
-};
 
 const ChatArea: React.FC<ChatAreaProps> = ({ messages }) => {
   return (
@@ -23,7 +16,7 @@ const ChatArea: React.FC<ChatAreaProps> = ({ messages }) => {
             <HStack mt={-0.5} mb={0}>
               <Text fontWeight='bold'>{message.User?.Name}</Text>
               <Text fontSize='sm' color='gray.500'>
-                {formatTime(message.CreatedAt)}
+                {message.CreatedAt && formatTime(message.CreatedAt)}
               </Text>
             </HStack>
             <Text>{message.Content}</Text>

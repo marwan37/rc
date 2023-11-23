@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import App from './App.tsx';
 import theme from './theme';
 
-import store from '@/store/store';
+import store from '@/store/index.ts';
 
 import '@assets/fonts/font.css';
 import '@assets/styles/global.css';

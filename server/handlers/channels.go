@@ -4,7 +4,7 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
-	"server/models"
+	"server/database"
 	"strconv"
 
 	"github.com/gorilla/mux"
@@ -44,7 +44,7 @@ func handleGetChannels(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	channelID, err := strconv.Atoi(r.URL.Query().Get("id"))
 	if err == nil && channelID > 0 {
 		// Get a specific channel
-		var channel models.Channel
+		var channel database.Channel
 		if result := db.First(&channel, channelID); result.Error != nil {
 			http.Error(w, result.Error.Error(), http.StatusNotFound)
 			return
@@ -52,7 +52,7 @@ func handleGetChannels(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 		json.NewEncoder(w).Encode(channel)
 	} else {
 		// Get all channels
-		var channels []models.Channel
+		var channels []database.Channel
 		if result := db.Find(&channels); result.Error != nil {
 			http.Error(w, result.Error.Error(), http.StatusInternalServerError)
 			return
@@ -62,7 +62,7 @@ func handleGetChannels(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 }
 
 func handlePostChannel(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
-	var channel models.Channel
+	var channel database.Channel
 	if err := json.NewDecoder(r.Body).Decode(&channel); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -75,7 +75,7 @@ func handlePostChannel(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 }
 
 func handleGetChannelMessages(w http.ResponseWriter, r *http.Request, db *gorm.DB, channelID int) {
-	var messages []models.Message
+	var messages []database.Message
 	if result := db.Preload("User").Where("channel_id = ?", channelID).Find(&messages); result.Error != nil {
 		http.Error(w, result.Error.Error(), http.StatusInternalServerError)
 		return
@@ -84,7 +84,7 @@ func handleGetChannelMessages(w http.ResponseWriter, r *http.Request, db *gorm.D
 }
 
 func handlePostChannelMessage(w http.ResponseWriter, r *http.Request, db *gorm.DB, channelID int) {
-	var message models.Message
+	var message database.Message
 	if err := json.NewDecoder(r.Body).Decode(&message); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return

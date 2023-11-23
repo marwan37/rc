@@ -12,7 +12,7 @@ import (
 
 	"server/handlers"
 
-	"server/models"
+	"server/database"
 
 	"github.com/gorilla/mux"
 	"gorm.io/driver/postgres"
@@ -30,7 +30,7 @@ func main() {
 		log.Fatal("Failed to connect to database:", err)
 	}
 
-	err = db.AutoMigrate(&models.User{}, &models.Channel{}, &models.Message{})
+	err = db.AutoMigrate(&database.User{}, &database.Channel{}, &database.Message{})
 	if err != nil {
 		log.Fatal("Failed to migrate database:", err)
 	}
@@ -48,6 +48,9 @@ func main() {
 	// messages routes
 	r.HandleFunc("/messages/{userId1}/{userId2}", handlers.MessagesHandler(db)).Methods("GET")
 	r.HandleFunc("/messages", handlers.MessagesHandler(db)).Methods("GET", "POST")
+
+	// handler for websockets
+	r.HandleFunc("/ws", handlers.WebSocketHandler(db)).Methods("GET")
 
 	handler := cors.Default().Handler(r)
 

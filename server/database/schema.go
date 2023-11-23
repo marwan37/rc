@@ -1,5 +1,5 @@
-// models/User.go
-package models
+// database/User.go
+package database
 
 import (
 	"gorm.io/gorm"
@@ -28,4 +28,10 @@ type Message struct {
 	ChannelID uint `gorm:"index"`
 	Channel   *Channel
 	User      *User
+}
+
+type WebSocketMessage struct {
+	Content   string `json:"content"`
+	UserID    string `json:"userId"`
+	ChannelID string `json:"channelId"`
 }

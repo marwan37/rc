@@ -7,33 +7,22 @@ import React, { useEffect, useState } from 'react';
 import { Channel } from '../types/Channel';
 import { User } from '../types/User';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  RootState,
-  AppDispatch,
-  fetchChannels,
-  fetchUsers,
-  createMessageInChannel,
-  fetchMessages
-} from '@/store/store';
-
-const defaultUser: User = {
-  ID: 5,
-  Name: 'Marwan',
-  Email: 'marwan@example.com',
-  AvatarUrl: 'https://lh3.googleusercontent.com/ogw/AKPQZvyaLhf7WPwKf8XjjG1wYRsxkZBHGqc4cKz0bW8mhA=s64-c-mo'
-};
+import { RootState, AppDispatch, fetchChannels, fetchUsers, fetchMessages } from '@/store';
+import { defaultUser } from '@/utils/constants';
+import { SEND_MESSAGE, WEBSOCKET_CONNECT } from '@/types/WebSocket';
 
 const DemoPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const channels = useSelector((state: RootState) => state.channels);
+  const channels = useSelector((state: RootState) => state.app.channels);
   // const users = useSelector((state: RootState) => state.users);
-  const messages = useSelector((state: RootState) => state.messages);
+  const messages = useSelector((state: RootState) => state.app.messages);
   const [currentChannel, setCurrentChannel] = useState<Channel | undefined>(undefined);
 
   useEffect(() => {
     dispatch(fetchChannels());
     dispatch(fetchUsers());
     dispatch(fetchMessages());
+    dispatch({ type: WEBSOCKET_CONNECT });
   }, [dispatch]);
 
   useEffect(() => {
@@ -49,12 +38,10 @@ const DemoPage: React.FC = () => {
     if (newMessageContent.trim() !== '') {
       const newMessage: Omit<Message, 'ID'> = {
         Content: newMessageContent,
-        CreatedAt: new Date(),
         ChannelID: currentChannel.ID,
         UserID: sender.ID
       };
-      console.log(newMessage);
-      dispatch(createMessageInChannel({ channelId: currentChannel.ID, message: newMessage as Message }));
+      dispatch({ type: SEND_MESSAGE, payload: newMessage as Message });
     }
   };
 

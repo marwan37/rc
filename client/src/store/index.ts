@@ -77,7 +77,8 @@ const appSlice = createSlice({
       state.messages = action.payload;
     });
     builder.addCase(NEW_MESSAGE_RECEIVED, (state, action: NewMessageReceivedAction) => {
-      state.messages.push(action.payload);
+      console.log('message received!!!')
+      state.messages = [...state.messages, action.payload];
     });
   },
 });

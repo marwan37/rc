@@ -39,10 +39,18 @@ func handleWebSocketMessage(db *gorm.DB, c *wsclient.Client, data interface{}) {
 
 	log.Printf("Saved message: %v\n", message.Content)
 
+	var user models.User
+	result := db.First(&user, message.UserID)
+	if result.Error != nil {
+		log.Printf("Error fetching user: %v\n", result.Error)
+		return
+	}
+
 	broadcastMsg := models.WebSocketMessage{
 		Content:   message.Content,
 		UserID:    message.UserID,
 		ChannelID: message.ChannelID,
+		User:      user,
 	}
 
 	wsclient.BroadcastToChannel(wsMsg.ChannelID, broadcastMsg)

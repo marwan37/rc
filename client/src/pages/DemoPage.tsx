@@ -14,7 +14,6 @@ import { SEND_MESSAGE, WEBSOCKET_CONNECT } from '@/types/WebSocket';
 const DemoPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const channels = useSelector((state: RootState) => state.app.channels);
-  // const users = useSelector((state: RootState) => state.users);
   const messages = useSelector((state: RootState) => state.app.messages);
   const [currentChannel, setCurrentChannel] = useState<Channel | undefined>(undefined);
 
@@ -22,16 +21,22 @@ const DemoPage: React.FC = () => {
     dispatch(fetchChannels());
     dispatch(fetchUsers());
     dispatch(fetchMessages());
-    dispatch({ type: WEBSOCKET_CONNECT });
   }, [dispatch]);
 
   useEffect(() => {
-    if (channels.length > 0) {
-      setCurrentChannel(channels[0]);
-    } else {
-      setCurrentChannel(undefined);
+    if (currentChannel) {
+      dispatch({
+        type: WEBSOCKET_CONNECT,
+        payload: { channelId: currentChannel.ID }
+      });
     }
-  }, [channels]);
+  }, [dispatch, currentChannel?.ID]);
+
+  useEffect(() => {
+    if (channels.length > 0 && !currentChannel) {
+      setCurrentChannel(channels[0]);
+    }
+  }, [channels, currentChannel]);
 
   const handleSendMessage = (newMessageContent: string, sender: User) => {
     if (!currentChannel) return;

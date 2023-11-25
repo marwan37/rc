@@ -31,7 +31,8 @@ type Message struct {
 }
 
 type WebSocketMessage struct {
-	Content   string `json:"content"`
-	UserID    uint   `json:"userId"`
-	ChannelID uint   `json:"channelId"`
+	Content   string `json:"Content"`
+	UserID    uint   `json:"UserID"`
+	ChannelID uint   `json:"ChannelID"`
+	User      User   `json:"User"`
 }

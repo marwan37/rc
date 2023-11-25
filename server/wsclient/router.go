@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"server/models"
+	"strconv"
 
 	"github.com/gorilla/websocket"
 )
@@ -44,7 +45,19 @@ func (rt *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	client := NewClient(socket, rt.FindHandler)
+	channelIDStr := r.URL.Query().Get("channel_id")
+	if channelIDStr == "" {
+		log.Println("No channel ID provided")
+		return
+	}
+
+	channelID, err := strconv.ParseUint(channelIDStr, 10, 64)
+	if err != nil {
+		log.Printf("Invalid channel ID: %v\n", err)
+		return
+	}
+
+	client := NewClient(socket, uint(channelID), rt.FindHandler)
 
 	// running method for reading from sockets, in main routine
 	client.Read()

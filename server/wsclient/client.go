@@ -24,9 +24,10 @@ type Client struct {
 var clients = make(map[*Client]bool)
 
 // NewClient accepts a socket and returns an initialized Client.
-func NewClient(socket *websocket.Conn, findHandler FindHandler) *Client {
+func NewClient(socket *websocket.Conn, channelID uint, findHandler FindHandler) *Client {
 	return &Client{
 		Socket:      socket,
+		ChannelID:   channelID,
 		FindHandler: findHandler,
 	}
 }
